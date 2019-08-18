@@ -2,6 +2,7 @@
 # 1. An ECR repository to store the built image in.
 # 2. A CodeBuild job to build and push the container. The build steps are defined in the buildspec.yml file.
 # 3. An IAM policy that the build runs as with access to create images and push to ECR.
+# 4. A webhook to receive notifications when commits are pushed to GitHub.
 
 data "template_file" "codebuild_policy" {
   template = "${file("templates/codebuild_iam_policy.json")}"
@@ -60,5 +61,21 @@ resource "aws_codebuild_project" "build_image" {
     git_clone_depth     = 1
     report_build_status = true
     buildspec           = "${data.template_file.buildspec.rendered}"
+  }
+}
+
+resource "aws_codebuild_webhook" "github" {
+  project_name = "${aws_codebuild_project.build_image.name}"
+
+  filter_group {
+    filter {
+      type = "EVENT"
+      pattern = "PUSH"
+    }
+
+    filter {
+      type = "HEAD_REF"
+      pattern = "master"
+    }
   }
 }

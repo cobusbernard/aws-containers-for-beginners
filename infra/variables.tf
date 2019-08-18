@@ -1,10 +1,10 @@
-variable "terraform_statefile_bucketname" {
-    type = "string"
-    default = "webinar-terraform-sample"
+variable "container_name" {
+  type    = "string"
+  default = "webinar-web-app"
 }
 
-variable "terraform_statefile_bucket_region" {
-    type = "string"
-    default = "eu-west-1"
+variable "aws_region" {
+  type    = "string"
+  default = "eu-west-1"
 }
 

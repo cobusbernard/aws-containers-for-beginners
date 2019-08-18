@@ -12,9 +12,9 @@ module "vpc" {
   enable_nat_gateway = true
   enable_vpn_gateway = false
   enable_s3_endpoint = true
-  
+
   tags = {
-    Terraform = "true"
+    Terraform   = "true"
     Environment = "prod"
   }
 }

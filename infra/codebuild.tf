@@ -7,9 +7,9 @@
 data "template_file" "codebuild_policy" {
   template = "${file("templates/codebuild_iam_policy.json")}"
 
-  #   vars = {
-  #     aws_s3_bucket_arn = "${aws_s3_bucket.source.arn}"
-  #   }
+  vars = {
+    codepipeline_bucket_arn = "${aws_s3_bucket.webinar_source.arn}"
+  }
 }
 
 resource "aws_iam_role" "codebuild_role" {
@@ -44,7 +44,7 @@ resource "aws_codebuild_project" "build_image" {
   service_role = "${aws_iam_role.codebuild_role.arn}"
 
   artifacts {
-    type = "NO_ARTIFACTS"
+    type = "CODEPIPELINE"
   }
 
   environment {
@@ -56,26 +56,7 @@ resource "aws_codebuild_project" "build_image" {
   }
 
   source {
-    type                = "GITHUB"
-    location            = "https://github.com/cobusbernard/aws-containers-for-beginners.git"
-    git_clone_depth     = 1
-    report_build_status = true
-    buildspec           = "${data.template_file.buildspec.rendered}"
-  }
-}
-
-resource "aws_codebuild_webhook" "github" {
-  project_name = "${aws_codebuild_project.build_image.name}"
-
-  filter_group {
-    filter {
-      type = "EVENT"
-      pattern = "PUSH"
-    }
-
-    filter {
-      type = "HEAD_REF"
-      pattern = "master"
-    }
+    type      = "CODEPIPELINE"
+    buildspec = "${data.template_file.buildspec.rendered}"
   }
 }

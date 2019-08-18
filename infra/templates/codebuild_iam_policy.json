@@ -19,6 +19,20 @@
           "ecs:RunTask",
           "iam:PassRole"
         ]
+      },
+      {
+        "Effect":"Allow",
+        "Action": [
+          "s3:GetObject",
+          "s3:GetObjectVersion",
+          "s3:GetBucketVersioning",
+          "s3:List*",
+          "s3:PutObject"
+        ],
+        "Resource": [
+          "${codepipeline_bucket_arn}",
+          "${codepipeline_bucket_arn}/*"
+        ]
       }
     ]
   }

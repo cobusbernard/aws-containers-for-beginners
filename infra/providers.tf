@@ -5,8 +5,8 @@ provider "aws" {
 }
 
 provider "github" {
-  version    = "~> 2.2"
-  token      = "${local.github_token}"
+  version      = "~> 2.2"
+  token        = "${local.github_token}"
   organization = "${local.github_username}"
 }
 

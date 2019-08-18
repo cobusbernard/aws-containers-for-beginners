@@ -27,7 +27,7 @@ resource "aws_security_group_rule" "alb_allow_http" {
 }
 
 resource "aws_security_group_rule" "alb_allow_egress" {
-  type        = "ingress"
+  type        = "egress"
   from_port   = 0
   to_port     = 65535
   protocol    = "-1"
@@ -37,11 +37,18 @@ resource "aws_security_group_rule" "alb_allow_egress" {
 }
 
 resource "aws_alb_target_group" "webinar_service_target_group" {
-  name        = "${var.container_name}-target-group"
-  port        = "${var.container_port}"
-  protocol    = "HTTP"
-  vpc_id      = "${module.vpc.vpc_id}"
-  target_type = "ip"
+  name                 = "${var.container_name}-target-group"
+  port                 = "${var.container_port}"
+  protocol             = "HTTP"
+  vpc_id               = "${module.vpc.vpc_id}"
+  target_type          = "ip"
+  deregistration_delay = 10
+
+  health_check {
+    interval          = 5
+    timeout           = 4
+    healthy_threshold = 2
+  }
 
   lifecycle {
     create_before_destroy = true

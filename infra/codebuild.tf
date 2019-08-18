@@ -23,7 +23,7 @@ resource "aws_iam_role_policy" "codebuild_policy" {
   policy = "${data.template_file.codebuild_policy.rendered}"
 }
 
-resource "aws_ecr_repository" "ecr_repo" {
+resource "aws_ecr_repository" "webinar_repo" {
   name = "${var.container_name}"
 }
 
@@ -32,7 +32,7 @@ data "template_file" "buildspec" {
 
   vars = {
     container_name = "${var.container_name}"
-    repository_url = "${aws_ecr_repository.ecr_repo.repository_url}"
+    repository_url = "${aws_ecr_repository.webinar_repo.repository_url}"
     region         = "${var.aws_region}"
   }
 }

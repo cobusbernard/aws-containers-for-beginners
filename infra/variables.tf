@@ -8,9 +8,24 @@ variable "container_port" {
   default = "80"
 }
 
+variable "container_desired_count" {
+  type    = "string"
+  default = "2"
+}
+
+variable "container_desired_cpu" {
+  type    = "string"
+  default = "256"
+}
+
+variable "container_desired_memory" {
+  type    = "string"
+  default = "512"
+}
+
 variable "ecs_cluster_name" {
-    type = "string"
-    default = "webinar"
+  type    = "string"
+  default = "webinar"
 }
 
 variable "aws_region" {

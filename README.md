@@ -15,20 +15,9 @@ aws_secret_access_key = your_api_key_secret
 
 3. Run `terraform init` in the `infra` directory.
 
-4. To connect the repo in GitHub with CodeBuild, it needs a GitHub access token. Generate one and then create the following file `src-creds.json`:
-~~~
-{
-  "serverType": "GITHUB",
-  "authType": "PERSONAL_ACCESS_TOKEN",
-  "token": "my-github-token",
-  "username": "my-github-username"
-}
-~~~
-Then run `aws --region eu-west-1 --profile aws-webinar codebuild import-source-credentials --cli-input-json file://src-creds.json` to add the config to AWS. Afterwards, delete the file `rm src-creds.json`.
+4. In `infra/variables.tf`, change the `github_username` and `github_repo_name` defaults to your ones.
 
-5. In `infra/variables.tf`, change the `github_username` and `github_repo_name` defaults to your ones.
-
-6. Create `infra/secret.tf` with the following:
+5. Create `infra/secret.tf` with the following:
 ~~~
 locals {
   webhook_secret  = "web-hook-secret-shared-string"

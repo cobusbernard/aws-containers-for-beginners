@@ -27,3 +27,12 @@ aws_secret_access_key = your_api_key_secret
 Then run `aws --region eu-west-1 --profile aws-webinar codebuild import-source-credentials --cli-input-json file://src-creds.json` to add the config to AWS. Afterwards, delete the file `rm src-creds.json`.
 
 5. In `infra/variables.tf`, change the `github_username` and `github_repo_name` defaults to your ones.
+
+6. Create `infra/secret.tf` with the following:
+~~~
+locals {
+  webhook_secret  = "web-hook-secret-shared-string"
+  github_token    = "github-token-with-permission-to-create-webhooks"
+  github_username = "cobusbernard"
+}
+~~~

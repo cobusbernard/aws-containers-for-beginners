@@ -53,6 +53,8 @@ resource "aws_alb_target_group" "webinar_service_target_group" {
   lifecycle {
     create_before_destroy = true
   }
+
+  depends_on = [ "aws_alb.webinar_alb" ]
 }
 
 resource "aws_alb" "webinar_alb" {

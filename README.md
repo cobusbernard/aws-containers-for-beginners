@@ -1,5 +1,9 @@
 # AWS Getting started with Containers Webinar
 
+This is an older implementation, I recommend you look at [Bootstrapping your Terraform automation with Amazon CodeCatalyst](bit.ly/bootstrapping-terraform) that I wrote on how to set up the permissions and bootstrap Terraform. There is also a followup guide on how you can start [Automating Multiple Environments with Terraform](bit.ly/multi-account-terraform).
+
+You can use the implementation in these to also use GitHub Actions if you prefer to manage multiple environments.
+
 This repo is used to set up the infrastructure used to build and deploy a container to ECS Fargate for a webinar.
 
 ## Setup
